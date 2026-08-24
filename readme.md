@@ -71,14 +71,20 @@ This application automatically collects, processes, and analyzes news articles a
 - Bangladesh: 3%
 
 **Seasonality – News Coverage Volume by Month**
-Scraping volume follows the wheat disease news cycle:
-- February: 311 articles (disease monitoring begins)
-- March: 359 articles (peak news coverage)
-- April-May: 394–427 articles (disease season peak)
-- June-July: 317–147 articles (coverage declines as season ends)
-- Earlier months: 1–17 articles (off-season noise)
 
-This demonstrates the scraping pipeline effectively captures the news cycle rhythm during wheat disease season.
+| Month   | Articles |
+|---------|----------|
+| 2025-09 | 1        |
+| 2025-12 | 4        |
+| 2026-01 | 17       |
+| 2026-02 | 311      |
+| 2026-03 | 359      |
+| 2026-04 | 394      |
+| 2026-05 | 427      |
+| 2026-06 | 317      |
+| 2026-07 | 147      |
+
+Scraping volume follows the wheat disease news cycle, peaking during disease season (Feb-May) and declining as season ends. This demonstrates the pipeline effectively captures the seasonal rhythm of agricultural news.
 
 **System Reliability**: Unattended operation surviving international relocation with negligible backlog
 
