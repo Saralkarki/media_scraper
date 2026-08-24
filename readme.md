@@ -70,15 +70,15 @@ This application automatically collects, processes, and analyzes news articles a
 - Pakistan: 11%
 - Bangladesh: 3%
 
-**Seasonality – Raw URL Collection by Month**
-Perfectly aligned with wheat disease cycle:
-- February: 311 (disease monitoring begins)
-- March: 359 (peak season)
-- April-May: 394–427 (disease spread)
-- June-July: 317–147 (decline as season ends)
-- Earlier months: 1–17 (off-season)
+**Seasonality – News Coverage Volume by Month**
+Scraping volume follows the wheat disease news cycle:
+- February: 311 articles (disease monitoring begins)
+- March: 359 articles (peak news coverage)
+- April-May: 394–427 articles (disease season peak)
+- June-July: 317–147 articles (coverage declines as season ends)
+- Earlier months: 1–17 articles (off-season noise)
 
-This seasonal pattern validates the system captures real agricultural signals.
+This demonstrates the scraping pipeline effectively captures the news cycle rhythm during wheat disease season.
 
 **System Reliability**: Unattended operation surviving international relocation with negligible backlog
 
