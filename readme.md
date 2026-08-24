@@ -56,6 +56,32 @@ This application automatically collects, processes, and analyzes news articles a
 ![Geographic Mapping](images/mapped-visualization.png)
 *Regional Intelligence: Interactive geographic mapping using Leaflet.js showing wheat rust disease outbreak distribution across South Asia*
 
+## Production Results
+
+**Pipeline Performance (10+ months in production)**
+- 2,744 URLs collected across 303 days
+- 1,977 live URLs validated (767 dead links filtered at zero cost)
+- 1,364 articles successfully extracted and processed
+- 36 classified as relevant wheat disease reports (high-precision semantic filtering)
+- 1,105 filtered as off-topic (LLM's relevance judgment outperforms keyword matching)
+
+**Geographic Coverage**
+- India: 82% of classified reports
+- Pakistan: 11%
+- Bangladesh: 3%
+
+**Seasonality – Raw URL Collection by Month**
+Perfectly aligned with wheat disease cycle:
+- February: 311 (disease monitoring begins)
+- March: 359 (peak season)
+- April-May: 394–427 (disease spread)
+- June-July: 317–147 (decline as season ends)
+- Earlier months: 1–17 (off-season)
+
+This seasonal pattern validates the system captures real agricultural signals.
+
+**System Reliability**: Unattended operation surviving international relocation with negligible backlog
+
 ## Quick Links
 
 - 🌐 **Live Application**: https://mediascraper.saralcodes.xyz/
