@@ -22,7 +22,7 @@ This application automatically collects, processes, and analyzes news articles a
 
 **Backend & Processing**: Flask · Python · SQLAlchemy · newspaper3k  
 **AI & LLM**: Groq API for structured data extraction  
-**Frontend**: JavaScript · Highcharts · DataTables  
+**Frontend**: JavaScript · Highcharts · DataTables · Leaflet.js  
 **Infrastructure**: SQLite · APScheduler · Docker · REST API
 
 ## Key Capabilities
@@ -54,7 +54,7 @@ This application automatically collects, processes, and analyzes news articles a
 *Analytics Dashboard: Real-time charts and statistics with Highcharts for trend analysis*
 
 ![Geographic Mapping](images/mapped-visualization.png)
-*Regional Intelligence: Geographic distribution of wheat rust disease outbreaks across South Asia*
+*Regional Intelligence: Interactive geographic mapping using Leaflet.js showing wheat rust disease outbreak distribution across South Asia*
 
 ## Quick Links
 
