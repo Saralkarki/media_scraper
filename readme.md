@@ -1,10 +1,10 @@
 # Media Scraper
 
-An automated system for collecting and analyzing news articles about agricultural issues from across South Asia.
+An automated system for collecting and analyzing news articles about wheat rust disease and related agricultural concerns from across South Asia.
 
 ## What It Does
 
-This application automatically gathers news articles related to wheat diseases and agricultural concerns from multiple online sources, processes them with AI to extract key information, and organizes everything into an accessible database.
+This application automatically gathers news articles related to wheat rust disease and agricultural concerns from multiple online sources, processes them with AI to extract key information, and organizes everything into an accessible database.
 
 ## Key Features
 
@@ -18,7 +18,7 @@ This application automatically gathers news articles related to wheat diseases a
 - **Backend**: Flask (Python)
 - **Database**: SQLite with SQLAlchemy ORM
 - **Content Extraction**: newspaper3k library for HTML parsing and article extraction
-- **LLM Integration**: OpenRouter API with Mistral & DeepSeek models for structured data extraction
+- **LLM Integration**: Groq API for fast and efficient structured data extraction
 - **Frontend**: JavaScript with interactive data visualization
   - **Highcharts** – Interactive charts and statistical visualizations
   - **DataTables** – Advanced data grid with sorting, filtering, and pagination
