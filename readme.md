@@ -28,6 +28,7 @@ This application automatically collects, processes, and analyzes news articles a
 ## Key Capabilities
 
 ![System Architecture](images/Staging_data.png)
+*Data Collection & Staging: Multi-source news aggregation and initial processing pipeline*
 
 ### Core Pipeline
 - **Data Collection**: Multi-source aggregation from Google News, NewsAPI with APScheduler automation
@@ -36,6 +37,7 @@ This application automatically collects, processes, and analyzes news articles a
 - **Structured Output**: Geographic location, disease classification, wheat variety identification
 
 ![LLM Parsed Data Table](images/final_table_LLM_parsed.png)
+*Extracted Data: Structured information extracted by LLM including location, disease type, variety, and confidence scores*
 
 ## Features
 
@@ -49,8 +51,10 @@ This application automatically collects, processes, and analyzes news articles a
 ### Dashboard Visualizations
 
 ![Interactive Visualizations](images/visualization.png)
+*Analytics Dashboard: Real-time charts and statistics with Highcharts for trend analysis*
 
 ![Geographic Mapping](images/mapped-visualization.png)
+*Regional Intelligence: Geographic distribution of wheat rust disease outbreaks across South Asia*
 
 ## Quick Links
 
