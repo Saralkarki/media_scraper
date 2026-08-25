@@ -28,7 +28,7 @@ This application automatically collects, processes, and analyzes news articles a
 ## Key Capabilities
 
 ![System Architecture](images/Staging_data.png)
-*Data Collection & Staging: Multi-source news aggregation and initial processing pipeline*
+*Data Collection & Staging: Google Custom Search API aggregation and initial processing pipeline*
 
 ### Core Pipeline
 - **Data Collection**: Google Custom Search API with APScheduler automation
@@ -61,7 +61,7 @@ This application automatically collects, processes, and analyzes news articles a
 **Pipeline Performance (10+ months in production)**
 - 2,744 URLs collected across 303 days
 - 1,977 live URLs validated (767 dead links filtered at zero cost)
-- 1,364 articles successfully extracted and processed
+- 1,364 articles successfully extracted (613 failed: 251 paywalls, 227 manual intervention, 135 extraction errors)
 - 36 classified as relevant (LLM read all 1,364 and identified genuine disease reports)
 - 1,105 rejected as off-topic despite keyword matches (LLM semantic filtering vs. keyword-only approach)
 - 221 permanent failures; 2 still in pipeline
