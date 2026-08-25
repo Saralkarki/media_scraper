@@ -84,7 +84,7 @@ This application automatically collects, processes, and analyzes news articles a
 | 2026-06 | 317      |
 | 2026-07 | 147      |
 
-Scraping volume follows the wheat disease news cycle, peaking during disease season (Feb-May) and declining as season ends. This demonstrates the pipeline effectively captures the seasonal rhythm of agricultural news.
+Scraping volume follows the wheat growing season, peaking during sowing and growth (Feb-May) and declining after harvest. This demonstrates the pipeline effectively captures the seasonal rhythm of agricultural news cycles.
 
 ## Quick Links
 
