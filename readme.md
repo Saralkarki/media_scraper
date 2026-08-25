@@ -86,8 +86,6 @@ This application automatically collects, processes, and analyzes news articles a
 
 Scraping volume follows the wheat disease news cycle, peaking during disease season (Feb-May) and declining as season ends. This demonstrates the pipeline effectively captures the seasonal rhythm of agricultural news.
 
-**System Reliability**: Unattended operation surviving international relocation with negligible backlog
-
 ## Quick Links
 
 - 🌐 **Live Application**: https://mediascraper.saralcodes.xyz/
