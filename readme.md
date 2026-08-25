@@ -8,9 +8,9 @@ An automated system for collecting and analyzing news articles about wheat rust 
 News Sources       Content Extraction       LLM Processing       Storage & Access
      ↓                    ↓                      ↓                    ↓
 ┌──────────────┐  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────┐
-│ Google News  │  │ URL Validation   │  │  Groq API        │  │  SQLite DB   │
-│ NewsAPI      │→ │ newspaper3k      │→ │  Structured      │→ │  REST API    │
-│ Other feeds  │  │ HTTP validation  │  │  Extraction      │  │  Dashboard   │
+│ Google       │  │ URL Validation   │  │  Groq API        │  │  SQLite DB   │
+│ Custom Search│→ │ newspaper3k      │→ │  Structured      │→ │  REST API    │
+│ API          │  │ HTTP validation  │  │  Extraction      │  │  Dashboard   │
 └──────────────┘  └──────────────────┘  └──────────────────┘  └──────────────┘
 ```
 
@@ -31,9 +31,9 @@ This application automatically collects, processes, and analyzes news articles a
 *Data Collection & Staging: Multi-source news aggregation and initial processing pipeline*
 
 ### Core Pipeline
-- **Data Collection**: Multi-source aggregation from Google News, NewsAPI with APScheduler automation
+- **Data Collection**: Google Custom Search API with APScheduler automation
 - **Content Extraction**: URL validation and article text parsing via newspaper3k
-- **AI-Powered Processing**: Groq API for structured data extraction with confidence scoring
+- **LLM Processing**: Groq API reads all extracted articles for semantic relevance classification
 - **Structured Output**: Geographic location, disease classification, wheat variety identification
 
 ![LLM Parsed Data Table](images/final_table_LLM_parsed.png)
@@ -62,29 +62,34 @@ This application automatically collects, processes, and analyzes news articles a
 - 2,744 URLs collected across 303 days
 - 1,977 live URLs validated (767 dead links filtered at zero cost)
 - 1,364 articles successfully extracted and processed
-- 36 classified as relevant wheat disease reports (high-precision semantic filtering)
-- 1,105 filtered as off-topic (LLM's relevance judgment outperforms keyword matching)
+- 36 classified as relevant (LLM read all 1,364 and identified genuine disease reports)
+- 1,105 rejected as off-topic despite keyword matches (LLM semantic filtering vs. keyword-only approach)
+- 221 permanent failures; 2 still in pipeline
 
-**Geographic Coverage**
-- India: 82% of classified reports
-- Pakistan: 11%
-- Bangladesh: 3%
+**Geographic Coverage (of the 36 classified reports)**
+- India: 29 (82%)
+- Pakistan: 4 (11%)
+- Bangladesh: 1 (3%)
+- Egypt: 1 (3% — geo-leak)
+- Australia: 1 (3% — geo-leak)
 
-**Seasonality – News Coverage Volume by Month**
+Note: Two records fall outside South Asian scope. This is upstream in the search layer; a simple country allowlist would eliminate this leakage.
 
-| Month   | Articles |
-|---------|----------|
-| 2025-09 | 1        |
-| 2025-12 | 4        |
-| 2026-01 | 17       |
-| 2026-02 | 311      |
-| 2026-03 | 359      |
-| 2026-04 | 394      |
-| 2026-05 | 427      |
-| 2026-06 | 317      |
-| 2026-07 | 147      |
+**Seasonality – Live URLs Validated by Month**
 
-Scraping volume follows the wheat growing season, peaking during sowing and growth (Feb-May) and declining after harvest. This demonstrates the pipeline effectively captures the seasonal rhythm of agricultural news cycles.
+| Month   | URLs |
+|---------|------|
+| 2025-09 | 1    |
+| 2025-12 | 4    |
+| 2026-01 | 17   |
+| 2026-02 | 311  |
+| 2026-03 | 359  |
+| 2026-04 | 394  |
+| 2026-05 | 427  |
+| 2026-06 | 317  |
+| 2026-07 | 147  |
+
+Collection volume tracks the wheat disease calendar: minimal coverage off-season (Sep, Dec, Jan), then sharp rise Feb–May as rust develops on maturing crops and advisories accumulate through the growing cycle, declining post-harvest. The pipeline captures disease-relevant news timing, not just sowing cycles.
 
 ## Quick Links
 
