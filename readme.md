@@ -4,15 +4,48 @@ An automated system for collecting and analyzing news articles about wheat rust 
 
 ## System Architecture
 
-```
-News Sources       Content Extraction       LLM Processing       Storage & Access
-     ↓                    ↓                      ↓                    ↓
-┌──────────────┐  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────┐
-│ Google       │  │ URL Validation   │  │  Groq API        │  │  SQLite DB   │
-│ Custom Search│→ │ newspaper3k      │→ │  Structured      │→ │  REST API    │
-│ API          │  │ HTTP validation  │  │  Extraction      │  │  Dashboard   │
-└──────────────┘  └──────────────────┘  └──────────────────┘  └──────────────┘
-```
+![System Architecture](images/architecture_detailed.png)
+*Complete ETL pipeline: Data generation → Ingestion → Transformation → Serving with SQLite backend*
+
+### Architecture Layers
+
+**Data Generation (Source)**
+- Google Custom Search API integration
+- Keywords: 'wheat disease', 'yellow rust'
+- Frequency: Daily scheduled runs (1 AM UTC)
+- Lookback window: 24 hours
+- Geographic scope: South Asia
+
+**Ingestion Layer**
+- Raw data collection (URL list)
+- Incremental loading with daily batches at 1 AM
+- Bronze data layer (unprocessed)
+- Data persists indefinitely (no deletion)
+- Generation rate: Daily automated collection
+
+**Transformation Layer**
+- Incremental load runs daily at 3 AM
+- Status code validation (HTTP 200 check)
+- Content extraction via newspaper3k
+- Conditional LLM processing:
+  - If `status_code = 200` and `content_extract = 1`
+  - Then parse content for LLM classification
+  - Silver layer stores classified results
+- URL deduplication and validation
+
+**Serving Layer**
+- Hot data store for operational analytics
+- Incremental transformations feed serving layer
+- Dashboard access via REST API
+- Real-time availability for decision-making
+
+**Storage (SQLite Database)**
+- **Compatibility**: SQL database (portable, can migrate to PostgreSQL)
+- **Performance**: Separate read and write database instances
+- **Scalability**: Can migrate to PostgreSQL or other SQL databases
+- **Data Retrieval**: Full queryability for analytics
+- **Metadata Management**: Stores URL, content, extraction timestamp, crop type
+- **Query Capabilities**: Optimized for complex agricultural analytics queries
 
 ## Overview
 
