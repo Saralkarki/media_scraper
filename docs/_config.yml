@@ -1,0 +1,6 @@
+theme: jekyll-theme-minimal
+title: Media Scraper
+description: Automated Wheat Disease Intelligence System
+show_downloads: false
+github:
+  repository_url: https://github.com/Saralkarki/media_scraper
