@@ -82,40 +82,95 @@ This application automatically collects, processes, and analyzes news articles a
 ![Geographic Mapping](images/mapped-visualization.png)
 *Regional Intelligence: Interactive geographic mapping using Leaflet.js showing wheat rust disease outbreak distribution across South Asia*
 
-## Production Results
+## Production Results & Analysis
 
-**Pipeline Performance (10+ months in production)**
-- 2,744 URLs collected across 303 days
-- 1,977 live URLs validated (767 dead links filtered at zero cost)
-- 1,364 articles successfully extracted (613 failed: 251 paywalls, 227 manual intervention, 135 extraction errors)
-- 36 classified as relevant (LLM read all 1,364 and identified genuine disease reports)
-- 1,105 rejected as off-topic despite keyword matches (LLM semantic filtering vs. keyword-only approach)
-- 221 permanent failures; 2 still in pipeline
+### Pipeline Performance (10+ months in production)
 
-**Geographic Coverage (of the 36 classified reports)**
-- India: 29 (82%)
-- Pakistan: 4 (11%)
-- Bangladesh: 1 (3%)
-- Egypt: 1 (3% — geo-leak)
-- Australia: 1 (3% — geo-leak)
+The system processed **2,744 URLs** across **303 days** with the following outcomes:
 
-Note: Two records fall outside South Asian scope. This is upstream in the search layer; a simple country allowlist would eliminate this leakage.
+- **2,744** URLs collected across 303 days
+- **1,977** live URLs validated (72%) — 767 dead links filtered at zero cost
+- **1,364** articles successfully extracted (69%) — 613 failed (251 paywalls, 227 manual intervention, 135 extraction errors)
+- **36** classified as relevant (2.6%) — LLM read all 1,364 and identified genuine disease reports
+- **1,105** rejected as off-topic (81%) — despite keyword matches, LLM semantic filtering demonstrated superiority over keyword-only approach
+- **221** permanent failures; 2 still in pipeline
 
-**Seasonality – Live URLs Validated by Month**
+### Pipeline Funnel Analysis
 
-| Month   | URLs |
-|---------|------|
-| 2025-09 | 1    |
-| 2025-12 | 4    |
-| 2026-01 | 17   |
-| 2026-02 | 311  |
-| 2026-03 | 359  |
-| 2026-04 | 394  |
-| 2026-05 | 427  |
-| 2026-06 | 317  |
-| 2026-07 | 147  |
+```
+URLs Collected (2,744)
+    ↓ Valid HTTP 200 (72%)
+Valid URLs (1,977)
+    ↓ Content Extracted (69%)
+Extracted Content (1,364)
+    ↓ LLM Processing (100%)
+LLM Classified (36)
+    ↓ Relevant Detection (97%)
+LLM Relevant News (36)
+```
 
-Collection volume tracks the wheat disease calendar: minimal coverage off-season (Sep, Dec, Jan), then sharp rise Feb–May as rust develops on maturing crops and advisories accumulate through the growing cycle, declining post-harvest. The pipeline captures disease-relevant news timing, not just sowing cycles.
+**Key Insight:** Out of 1,364 successfully extracted articles, the LLM identified only 36 as genuinely relevant (2.6%), while filtering 1,105 as unrelated despite keyword matches. This demonstrates LLM's semantic filtering power versus keyword-only approaches.
+
+### Geographic Coverage Analysis
+
+**Detected Disease Events by Country:**
+
+| Country | Count | Coverage | Notes |
+|---------|-------|----------|-------|
+| India | 29 | 81% | Primary focus region |
+| Pakistan | 4 | 11% | Secondary region |
+| Bangladesh | 1 | 3% | Tertiary region |
+| **South Asian Total** | **34** | **94%** | Core target region |
+| Egypt | 1 | 3% | Geo-leak (upstream tuning needed) |
+| Australia | 1 | 3% | Geo-leak (upstream tuning needed) |
+
+The system successfully maintains 94% regional accuracy on South Asia. The two off-region records indicate upstream search parameter refinement could eliminate geo-leakage with a simple country allowlist.
+
+### LLM Classification Distribution
+
+| Status | Count | Percentage | Details |
+|--------|-------|-----------|---------|
+| Unrelated (Filtered) | 1,105 | 81% | Keyword matches but not disease-relevant |
+| Processing | 36 | 3% | Active classification pipeline |
+| Failed | 221 | 16% | LLM processing errors |
+| Not Started | 2 | <1% | Still in pipeline queue |
+
+### Content Extraction Outcomes (Valid URLs)
+
+| Status | Count | Percentage |
+|--------|-------|-----------|
+| Successfully Extracted | 1,364 | 69% |
+| Behind Paywall | 251 | 13% |
+| Manual Intervention Needed | 227 | 11% |
+| Extraction Failed | 135 | 7% |
+
+### Collection Seasonality
+
+Peak collection aligns with wheat disease calendar, not just planting cycles:
+
+| Period | URLs | % | Pattern |
+|--------|------|---|---------|
+| Sep-Dec | 5 | <1% | Off-season minimum |
+| Jan | 17 | 1% | Early season start |
+| **Feb-May** | **1,491** | **54%** | **Peak disease season** |
+| Jun-Jul | 464 | 17% | Post-harvest decline |
+| Total | 2,744 | 100% | |
+
+**Detailed Monthly Breakdown:**
+
+| Month | URLs |
+|-------|------|
+| 2025-09 | 1 |
+| 2025-12 | 4 |
+| 2026-01 | 17 |
+| 2026-02 | 311 |
+| 2026-03 | 359 |
+| 2026-04 | 394 |
+| 2026-05 | 427 |
+| 2026-06 | 317 |
+| 2026-07 | 147 |
+
+The sharp Feb-May spike (1,491 URLs across 4 months, 54% of annual volume) reflects disease development timing on maturing crops and agricultural advisory concentration during critical growth stages. This demonstrates the pipeline captures disease-relevant news timing, not merely sowing cycles.
 
 ## Comparison Analysis: LLM Geographic Extraction Validation
 
@@ -149,68 +204,6 @@ To validate the LLM's geographic reasoning capability, extracted district coordi
 - 76.8% of extractions place the event within 100 meters of ground truth, indicating precise geographic reasoning
 - The high median (30m) vs. mean (13.88km) shows the distribution is right-skewed by 2 misclassified districts
 - Results demonstrate that LLM-based geographic extraction is reliable for filtering false positives and validating newsworthy disease events
-
-## Data Analysis & Insights
-
-### Pipeline Funnel Analysis
-
-```
-URLs Collected (2,744)
-    ↓ Valid HTTP 200 (72%)
-Valid URLs (1,977)
-    ↓ Content Extracted (69%)
-Extracted Content (1,364)
-    ↓ LLM Processing (100%)
-LLM Classified (36)
-    ↓ Relevant Detection (97%)
-LLM Relevant News (36)
-```
-
-**Key Insight:** Out of 1,364 successfully extracted articles, the LLM identified only 36 as genuinely relevant (2.6%), while filtering 1,105 as unrelated despite matching keywords. This demonstrates the LLM's effectiveness at semantic filtering versus keyword-only approaches.
-
-### LLM Classification Distribution
-
-| Status | Count | Percentage | Details |
-|--------|-------|-----------|---------|
-| Unrelated (Filtered) | 1,105 | 81% | Keyword matches but not disease-relevant |
-| Processing | 36 | 3% | Active classification pipeline |
-| Failed | 221 | 16% | LLM processing errors |
-| Not Started | 2 | <1% | Still in pipeline queue |
-
-### Content Extraction Outcomes (Valid URLs)
-
-| Status | Count | Percentage |
-|--------|-------|-----------|
-| Successfully Extracted | 1,364 | 69% |
-| Behind Paywall | 251 | 13% |
-| Manual Intervention Needed | 227 | 11% |
-| Extraction Failed | 135 | 7% |
-
-### Geographic Intelligence
-
-**Detected Disease Events by Country:**
-
-| Country | Count | Coverage |
-|---------|-------|----------|
-| India | 29 | 81% |
-| Pakistan | 4 | 11% |
-| Bangladesh | 1 | 3% |
-| Geo-leaks | 2 | 6% |
-
-The system successfully focuses on South Asia with 94% regional accuracy. Two off-region records (Egypt, Australia) indicate upstream search refinement is needed.
-
-### Collection Seasonality Patterns
-
-Peak collection aligns with wheat disease calendar, not just planting cycles:
-
-| Period | URLs | Pattern |
-|--------|------|---------|
-| Sep-Dec | 5 | Off-season minimum |
-| Jan | 17 | Early season start |
-| **Feb-May** | **1,491** | **Peak disease season** |
-| Jun-Jul | 464 | Post-harvest decline |
-
-The sharp Feb-May spike reflects disease development timing on maturing crops and agricultural advisory concentration during critical growth stages.
 
 ## Quick Links
 
